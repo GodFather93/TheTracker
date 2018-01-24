@@ -18,7 +18,7 @@ class HomeScreen extends React.Component {
           justifyContent: 'center',
           paddingTop: '5%',
           alignItems: 'center',
-          marginBottom: '20%',
+          marginBottom: '10%',
           backgroundColor: 'rgb(240,240,240)'
         }}
       >
@@ -53,17 +53,15 @@ class HomeScreen extends React.Component {
         style={{
           justifyContent: 'center',
           alignItems: 'center',
-          height: 40,
-          borderRadius: 20,
+          height: 150,
+          width: 150,
           backgroundColor: 'rgb(68, 151, 225)',
-          paddingHorizontal: 40,
-          paddingVertical: 5,
-          marginBottom: '5%',
-          flexDirection: 'row'
+          marginBottom: '2%'
         }}
+        activeOpacity={1}
         onPress={onPress}
       >
-        <Image source={require('./gear.png')} style={{ width: 20, height: 20, marginRight: 20 }} />
+        <Image source={require('./gear.png')} style={{ width: 50, height: 50, marginBottom: 20 }} />
         <Text
           style={{
             color: 'white',
@@ -83,14 +81,35 @@ class HomeScreen extends React.Component {
     return (
       <View
         style={{
+          width: '100%',
           justifyContent: 'center',
           alignItems: 'center'
         }}
       >
-        {this._renderStageButton('STAGE - I', () => navigate('Stage'))}
-        {this._renderStageButton('STAGE - II', () => navigate('Stage'))}
-        {this._renderStageButton('STAGE - III', () => navigate('Stage'))}
-        {this._renderStageButton('STAGE - IV', () => navigate('Stage'))}
+        <View
+          style={{
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row'
+          }}
+        >
+          {this._renderStageButton('STAGE - I', () => navigate('Stage'))}
+          <View style={{ width: '2%' }} />
+          {this._renderStageButton('STAGE - II', () => navigate('Stage'))}
+        </View>
+        <View
+          style={{
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row'
+          }}
+        >
+          {this._renderStageButton('STAGE - III', () => navigate('Stage'))}
+          <View style={{ width: '2%' }} />
+          {this._renderStageButton('STAGE - IV', () => navigate('Stage'))}
+        </View>
       </View>
     );
   }
@@ -105,7 +124,7 @@ class HomeScreen extends React.Component {
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: 'white',
-          marginTop: '20%'
+          marginTop: '10%'
         }}
       >
         <TouchableOpacity
@@ -127,7 +146,7 @@ class HomeScreen extends React.Component {
               fontWeight: '400'
             }}
           >
-            CREATE A JOB{' '}
+            CREATE A JOB
           </Text>
         </TouchableOpacity>
         <Text

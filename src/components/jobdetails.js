@@ -28,85 +28,96 @@ class JobDetails extends React.Component {
       job: ''
     };
   }
+  _renderTopView() {
+    return (
+      <View style={styles.TopViewContainer}>
+        <Text style={{ fontSize: 25, color: 'black', fontWeight: '800', letterSpacing: 3 }}> FILL JOB DETAILS </Text>
+        <Text style={{ textAlign: 'center', marginTop: '0.5%', fontSize: 12, fontWeight: '400', letterSpacing: 2 }}>
+          Fill in all required details {'\n'} of your current job
+        </Text>
+      </View>
+    );
+  }
+
+  _renderPdtDetails(title, type, onTextChange) {
+    return (
+      <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 15, fontWeight: '300', letterSpacing: 1.5, color: 'black' }}>{title}</Text>
+
+        <TextInput
+          style={{
+            borderRadius: 8,
+            backgroundColor: 'rgb(238,239,245)',
+            height: '35%',
+            width: '70%',
+            alignItems: 'center',
+            paddingVertical: 5,
+            paddingHorizontal: 5,
+            textAlign: 'center',
+            marginTop: '0.5%',
+            fontWeight: '400'
+          }}
+          onChangeText={onTextChange}
+          value={type}
+        />
+      </View>
+    );
+  }
+  _renderMiddleView() {
+    return (
+      <View style={styles.midViewContainer}>
+        <View style={{ height: '20%', marginBottom: '-7%' }}>
+          {this._renderPdtDetails('WIDTH IN MM', this.state.width, text => this.setState({ width: text }))}
+        </View>
+        <View style={{ height: '20%', marginBottom: '-7%' }}>
+          {this._renderPdtDetails('LENGTH IN MM', this.state.length, text => this.setState({ length: text }))}
+        </View>
+        <View style={{ height: '20%', marginBottom: '-7%' }}>
+          {this._renderPdtDetails('NO OF FINS', this.state.fins, text => this.setState({ fins: text }))}
+        </View>
+        <View style={{ height: '20%', marginBottom: '-7%' }}>
+          {this._renderPdtDetails('ORDER QTY.', this.state.qty, text => this.setState({ qty: text }))}
+        </View>
+        <View style={{ height: '20%', marginBottom: '-7%' }}>
+          {this._renderPdtDetails('JOB NO', this.state.job, text => this.setState({ job: text }))}
+        </View>
+      </View>
+    );
+  }
+
+  _renderBottomView() {
+    return (
+      <View style={styles.bottomViewContainer}>
+        <Text style={{ fontSize: 10, fontWeight: '500', letterSpacing: 2, color: 'black', paddingVertical: 5 }}>
+          Store your data for further stages
+        </Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'rgb(20,220,154)',
+            borderRadius: 20,
+            paddingVertical: 8,
+            paddingHorizontal: 10,
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'center'
+          }}
+          onPress={this._onPressButton}
+        >
+          <Image source={require('./icon2.png')} style={{ width: 20, height: 20, marginBottom: 0 }} />
+          <Text style={{ color: 'white', fontWeight: '700', letterSpacing: 1 }}> STORE DATA </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View>
-        <View
-          style={{
-            height: '20%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#454747',
-            borderWidth: 1,
-            borderRadius: 2,
-            borderColor: 'black',
-            borderBottomWidth: 0,
-            shadowColor: 'black',
-            shadowOffset: { width: 15, height: 10 },
-            shadowOpacity: 0.8,
-            shadowRadius: 2
-          }}
-        >
-          <Text style={{ fontSize: 25, color: 'white' }}> FILL JOB DETAILS </Text>
-        </View>
-        <View style={{ borderBottomColor: 'white', borderBottomWidth: 1 }} />
-        <View style={styles.ViewContainer}>
-          <View style={{ height: '100%', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'flex-start' }}>WIDTH IN MM</Text>
-            <TextInput
-              style={styles.CustomTextBox}
-              onChangeText={width => this.setState({ width })}
-              value={this.state.width}
-            />
-          </View>
-        </View>
-        <View style={styles.ViewContainer}>
-          <View style={{ height: '100%', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'flex-start' }}>LENGTH IN MM</Text>
-            <TextInput
-              style={styles.CustomTextBox}
-              onChangeText={length => this.setState({ length })}
-              value={this.state.length}
-            />
-          </View>
-        </View>
-        <View style={styles.ViewContainer}>
-          <View style={{ height: '100%', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'flex-start' }}> NO. OF FINS</Text>
-            <TextInput
-              style={styles.CustomTextBox}
-              onChangeText={fins => this.setState({ fins })}
-              value={this.state.fins}
-            />
-          </View>
-        </View>
-        <View style={styles.ViewContainer}>
-          <View style={{ height: '100%', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'flex-start' }}>ORDER QTY.</Text>
-            <TextInput
-              style={styles.CustomTextBox}
-              onChangeText={qty => this.setState({ qty })}
-              value={this.state.qty}
-            />
-          </View>
-        </View>
-        <View style={styles.ViewContainer}>
-          <View style={{ height: '100%', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'flex-start' }}>JOB NO.</Text>
-            <TextInput
-              style={styles.CustomTextBox}
-              onChangeText={job => this.setState({ job })}
-              value={this.state.job}
-            />
-          </View>
-        </View>
-        <View style={{ height: '10%', alignItems: 'center', backgroundColor: 'grey' }}>
-          <TouchableOpacity style={styles.buttonTouchable} onPress={this._onPressButton}>
-            <Text style={{ textAlign: 'center', color: 'black', padding: 0 }}> STORE DATA </Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.ViewContainer}>
+        {this._renderTopView()}
+        {this._renderMiddleView()}
+
+        {this._renderBottomView()}
       </View>
     );
   }
@@ -114,35 +125,25 @@ class JobDetails extends React.Component {
 
 const styles = StyleSheet.create({
   ViewContainer: {
-    height: '14%',
-    alignItems: 'center',
-
-    backgroundColor: 'grey'
+    height: '100%',
+    backgroundColor: 'white'
   },
-  CustomTextBox: {
-    height: '25%',
+  TopViewContainer: {
+    height: '13%',
     width: '100%',
-    borderColor: 'white',
-    borderWidth: 1,
-    shadowOffset: { height: 6, width: 6 },
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
-    backgroundColor: 'white',
-    borderRadius: 5,
-    color: 'black'
-  },
-  buttonTouchable: {
-    marginTop: 10,
-    borderWidth: 1.5,
-    borderRadius: 8,
-    borderColor: 'black',
     alignItems: 'center',
-    height: '30%',
-    width: '50%',
+    justifyContent: 'center',
+    backgroundColor: 'rgb(240,240,240)'
+  },
+  midViewContainer: {
+    height: '75%',
+    backgroundColor: 'white'
+  },
+  bottomViewContainer: {
+    height: '12%',
     backgroundColor: 'white',
-    shadowOffset: { height: 5, width: 5 },
-    shadowColor: 'black',
-    shadowOpacity: 0.8
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
 

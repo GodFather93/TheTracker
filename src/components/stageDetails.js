@@ -29,97 +29,107 @@ class StageDetails extends React.Component {
       comment: ''
     };
   }
-
-  render() {
-    const { navigate } = this.props.navigation;
+  _renderTopView() {
     return (
-      <View>
-        <View
-          style={{
-            height: '10%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#454747',
-            borderWidth: 1,
-            borderRadius: 2,
-            borderColor: 'black',
-            borderBottomWidth: 0,
-            shadowColor: 'black',
-            shadowOffset: { width: 15, height: 10 },
-            shadowOpacity: 0.8,
-            shadowRadius: 2
-          }}
-        >
-          <Text style={{ fontSize: 25, color: 'white' }}> STAGE DETAILS </Text>
-        </View>
+      <View style={styles.TopViewContainer}>
+        <Text style={{ fontSize: 25, color: 'black', fontWeight: '800', letterSpacing: 3 }}> STAGE DETAILS </Text>
+        <Text style={{ textAlign: 'center', marginTop: '0.5%', fontSize: 12, fontWeight: '400', letterSpacing: 2 }}>
+          Stage details {'\n'} of your current job
+        </Text>
+      </View>
+    );
+  }
 
-        <View style={styles.ViewContainer}>
-          <View style={{ height: '100%', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'flex-start' }}>WIDTH IN MM</Text>
+  _renderPdtDetails(title) {
+    return (
+      <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 15, fontWeight: '300', letterSpacing: 1.5, color: 'black' }}>{title}</Text>
+
+        <Text
+          style={{
+            borderRadius: 8,
+            backgroundColor: 'rgb(238,239,245)',
+            height: '35%',
+            width: '70%',
+            alignItems: 'center',
+            paddingVertical: 5,
+            paddingHorizontal: 5,
+            textAlign: 'center',
+            marginTop: '0.5%',
+            fontWeight: '400'
+          }}
+        />
+      </View>
+    );
+  }
+  _renderMiddleView() {
+    return (
+      <View style={styles.midViewContainer}>
+        <View style={{ height: '16.66%', marginBottom: '-7%' }}>{this._renderPdtDetails('WIDTH IN MM')}</View>
+        <View style={{ height: '16.66%', marginBottom: '-7%' }}>{this._renderPdtDetails('LENGTH IN MM')}</View>
+        <View style={{ height: '16.66%', marginBottom: '-7%' }}>{this._renderPdtDetails('NO OF FINS')}</View>
+        <View style={{ height: '16.66%', marginBottom: '-7%' }}>{this._renderPdtDetails('ORDER QTY.')}</View>
+        <View style={{ height: '16.66%' }}>{this._renderPdtDetails('JOB NO')}</View>
+        <View style={{ height: '16.66%' }}>
+          <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: 15, fontWeight: '300', letterSpacing: 1.5, color: 'black' }}>Comments.</Text>
+
             <TextInput
-              style={styles.CustomTextBox}
-              onChangeText={width => this.setState({ width })}
-              value={this.state.width}
-            />
-          </View>
-        </View>
-        <View style={styles.ViewContainer}>
-          <View style={{ height: '100%', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'flex-start' }}>LENGTH IN MM</Text>
-            <TextInput
-              style={styles.CustomTextBox}
-              onChangeText={length => this.setState({ length })}
-              value={this.state.length}
-            />
-          </View>
-        </View>
-        <View style={styles.ViewContainer}>
-          <View style={{ height: '100%', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'flex-start' }}> NO. OF FINS</Text>
-            <TextInput
-              style={styles.CustomTextBox}
-              onChangeText={fins => this.setState({ fins })}
-              value={this.state.fins}
-            />
-          </View>
-        </View>
-        <View style={styles.ViewContainer}>
-          <View style={{ height: '100%', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'flex-start' }}>ORDER QTY.</Text>
-            <TextInput
-              style={styles.CustomTextBox}
-              onChangeText={qty => this.setState({ qty })}
-              value={this.state.qty}
-            />
-          </View>
-        </View>
-        <View style={styles.ViewContainer}>
-          <View style={{ height: '100%', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'flex-start' }}>JOB NO.</Text>
-            <TextInput
-              style={styles.CustomTextBox}
-              onChangeText={job => this.setState({ job })}
-              value={this.state.job}
-            />
-          </View>
-        </View>
-        <View style={{ height: '15%', alignItems: 'center', backgroundColor: 'grey' }}>
-          <View style={{ height: '250%', width: '80%', alignItems: 'center', justifyContent: 'flex-start' }}>
-            <Text style={{ alignSelf: 'flex-start' }}>COMMENTS</Text>
-            <TextInput
-              style={styles.CustomTextBox}
               multiline={true}
+              style={{
+                borderRadius: 8,
+                backgroundColor: 'rgb(238,239,245)',
+                height: '100%',
+                width: '70%',
+
+                paddingVertical: 5,
+                paddingHorizontal: 5,
+
+                marginTop: '0.5%',
+                fontWeight: '400'
+              }}
               onChangeText={comment => this.setState({ comment })}
               value={this.state.comment}
             />
           </View>
         </View>
+      </View>
+    );
+  }
 
-        <View style={{ height: '10%', alignItems: 'center', backgroundColor: 'grey' }}>
-          <TouchableOpacity style={styles.buttonTouchable} onPress={this._onPressButton}>
-            <Text style={{ textAlign: 'center', color: 'black', padding: 0 }}> MARK FINAL ? </Text>
-          </TouchableOpacity>
-        </View>
+  _renderBottomView() {
+    return (
+      <View style={styles.bottomViewContainer}>
+        <Text style={{ fontSize: 10, fontWeight: '500', letterSpacing: 2, color: 'black', paddingVertical: 5 }}>
+          Comment above & Mark Your Job as Completed
+        </Text>
+        <TouchableOpacity
+          style={{
+            backgroundColor: 'rgb(20,220,154)',
+            borderRadius: 20,
+            paddingVertical: 8,
+            paddingHorizontal: 10,
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'center'
+          }}
+          onPress={this._onPressButton}
+        >
+          <Image source={require('./icon2.png')} style={{ width: 20, height: 20, marginBottom: 0 }} />
+          <Text style={{ color: 'white', fontWeight: '700', letterSpacing: 1 }}> Mark Final ? </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View style={styles.ViewContainer}>
+        {this._renderTopView()}
+        {this._renderMiddleView()}
+
+        {this._renderBottomView()}
       </View>
     );
   }
@@ -127,36 +137,25 @@ class StageDetails extends React.Component {
 
 const styles = StyleSheet.create({
   ViewContainer: {
+    height: '100%',
+    backgroundColor: 'white'
+  },
+  TopViewContainer: {
     height: '13%',
-    alignItems: 'center',
-
-    backgroundColor: 'grey'
-  },
-  CustomTextBox: {
-    height: '25%',
     width: '100%',
-    borderColor: 'white',
-    borderWidth: 1,
-    shadowOffset: { height: 6, width: 6 },
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
-    backgroundColor: 'white',
-    borderRadius: 5,
-    color: 'black'
-  },
-  buttonTouchable: {
-    marginTop: 10,
-    borderWidth: 1.5,
-    borderRadius: 8,
-    borderColor: 'black',
     alignItems: 'center',
-    height: '30%',
-    width: '50%',
+    justifyContent: 'center',
+    backgroundColor: 'rgb(240,240,240)'
+  },
+  midViewContainer: {
+    height: '75%',
+    backgroundColor: 'white'
+  },
+  bottomViewContainer: {
+    height: '12%',
     backgroundColor: 'white',
-    shadowOffset: { height: 5, width: 5 },
-    shadowColor: 'black',
-    shadowOpacity: 0.8
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
-
 export default StageDetails;

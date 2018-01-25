@@ -40,7 +40,7 @@ class StageDetails extends React.Component {
     );
   }
 
-  _renderPdtDetails(title) {
+  _renderPdtDetails(title, img) {
     return (
       <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ fontSize: 15, fontWeight: '300', letterSpacing: 1.5, color: 'black' }}>{title}</Text>
@@ -49,27 +49,48 @@ class StageDetails extends React.Component {
           style={{
             borderRadius: 8,
             backgroundColor: 'rgb(238,239,245)',
-            height: '35%',
+            height: '40%',
             width: '70%',
-            alignItems: 'center',
-            paddingVertical: 5,
-            paddingHorizontal: 5,
-            textAlign: 'center',
-            marginTop: '0.5%',
+            paddingVertical: 7,
             fontWeight: '400'
           }}
-        />
+        >
+          <View style={{ height: '100%', width: '100%', flexDirection: 'row' }}>
+            <View style={{ height: '33%', width: '70%', justifyContent: 'center', alignItems: 'flex-end' }}>
+              <Image source={img} style={{ height: 25, width: 30, justifyContent: 'center', marginTop: 5 }} />
+            </View>
+            <View
+              style={{
+                height: '40%',
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginLeft: 10
+              }}
+            >
+              <Text> -- </Text>
+            </View>
+          </View>
+        </Text>
       </View>
     );
   }
   _renderMiddleView() {
     return (
       <View style={styles.midViewContainer}>
-        <View style={{ height: '16.66%', marginBottom: '-7%' }}>{this._renderPdtDetails('WIDTH IN MM')}</View>
-        <View style={{ height: '16.66%', marginBottom: '-7%' }}>{this._renderPdtDetails('LENGTH IN MM')}</View>
-        <View style={{ height: '16.66%', marginBottom: '-7%' }}>{this._renderPdtDetails('NO OF FINS')}</View>
-        <View style={{ height: '16.66%', marginBottom: '-7%' }}>{this._renderPdtDetails('ORDER QTY.')}</View>
-        <View style={{ height: '16.66%' }}>{this._renderPdtDetails('JOB NO')}</View>
+        <View style={{ height: '16.66%', marginBottom: '-5%' }}>
+          {this._renderPdtDetails('WIDTH IN MM', require('./width.png'))}
+        </View>
+        <View style={{ height: '16.66%', marginBottom: '-5%' }}>
+          {this._renderPdtDetails('LENGTH IN MM', require('./length.png'))}
+        </View>
+        <View style={{ height: '16.66%', marginBottom: '-5%' }}>
+          {this._renderPdtDetails('NO OF FINS', require('./fins.png'))}
+        </View>
+        <View style={{ height: '16.66%', marginBottom: '-5%' }}>
+          {this._renderPdtDetails('ORDER QTY.', require('./qty.png'))}
+        </View>
+        <View style={{ height: '16.66%' }}>{this._renderPdtDetails('JOB NO', require('./job.png'))}</View>
         <View style={{ height: '16.66%' }}>
           <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <Text style={{ fontSize: 15, fontWeight: '300', letterSpacing: 1.5, color: 'black' }}>Comments.</Text>

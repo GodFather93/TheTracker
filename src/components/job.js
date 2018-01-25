@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import Camera from 'react-native-camera';
 class CreateJob extends React.Component {
   static navigationOptions = {
     title: 'Jobs',
@@ -23,56 +24,54 @@ class CreateJob extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <NavigatorIOS
-        initialRoute={{
-          component: QRCodeScanner,
-          title: 'Scan Code',
-          navigationBarHidden: true,
-          passProps: {
-            onRead: this.onSuccess.bind(this),
-            cameraStyle: styles.cameraContainer,
-            topContent: <Text style={styles.centerText}>Scan Product BarCode.</Text>,
-            bottomContent: (
-              <TouchableOpacity style={styles.buttonTouchable} onPress={() => navigate('Details')}>
-                <Text style={styles.buttonText}>Next!</Text>
-              </TouchableOpacity>
-            ),
-            containerStyle: {
-              marginTop: 10
-            }
-          }
-        }}
-        style={{ flex: 1 }}
-      />
+      <View style={styles.container}>
+        <Camera
+          ref={cam => {
+            this.camera = cam;
+          }}
+          onBarCodeRead={this.onBarCodeRead.bind(this)}
+          style={styles.preview}
+          aspect={Camera.constants.Aspect.fill}
+        >
+          <Text style={styles.capture} onPress={() => navigate('Details')}>
+            [NEXT]
+          </Text>
+        </Camera>
+      </View>
     );
+  }
+
+  onBarCodeRead(e) {
+    console.log('Barcode Found!', 'Type: ' + e.type + '\nData: ' + e.data);
+  }
+
+  takePicture() {
+    const options = {};
+    //options.location = ...
+    this.camera
+      .capture({ metadata: options })
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
   }
 }
 
 const styles = StyleSheet.create({
-  centerText: {
+  container: {
     flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777'
+    flexDirection: 'row'
   },
-  textBold: {
-    fontWeight: '500',
-    color: '#000'
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
-  buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)'
-  },
-  buttonTouchable: {
-    padding: 5,
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: 'black',
-    marginTop: -25
-  },
-  cameraContainer: {
-    marginTop: 10,
-    height: '92%'
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    color: '#000',
+    padding: 10,
+    margin: 40
   }
 });
 export default CreateJob;
